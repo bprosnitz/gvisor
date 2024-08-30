@@ -38,9 +38,9 @@ For more details about using gVisor with Docker, see
 production purposes.
 
 > **Note**: It is important to copy `runsc` to a location that is readable and
-> executable to all users, since `runsc` executes itself as user `nobody` to
-> avoid unnecessary privileges. The `/usr/local/bin` directory is a good place
-> to put the `runsc` binary.
+> executable to all users, since `runsc` executes itself as user `nobody` with
+> `--directfs=false` to avoid unnecessary privileges. The `/usr/local/bin`
+> directory is a good place to put the `runsc` binary.
 
 ## Install from an `apt` repository
 
