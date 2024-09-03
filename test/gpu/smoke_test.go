@@ -47,5 +47,5 @@ func TestCUDASmokeTests(t *testing.T) {
 	if err != nil {
 		t.Fatalf("could not run cuda-tests smoke tests: %v", err)
 	}
-	t.Logf("cuda-tests smoke tests output: %s", string(out))
+	t.Fatalf("cuda-tests smoke tests output: %s", string(out))
 }

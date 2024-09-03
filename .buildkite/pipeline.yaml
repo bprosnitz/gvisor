@@ -185,7 +185,7 @@ steps:
     agents:
       queue: cos-canary-gpu
   - <<: *common
-    <<: *source_test_continuous
+    <<: *source_test
     label: ":male_supervillain: COS GPU Tests (Default)"
     commands:
       - make cos-gpu-all-tests
