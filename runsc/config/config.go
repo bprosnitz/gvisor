@@ -325,6 +325,10 @@ type Config struct {
 	// the latest supported NVIDIA driver ABI.
 	NVProxyDriverVersion string `flag:"nvproxy-driver-version"`
 
+	// NVProxyAllowUnsupportedCapabilities is a comma-separated list of driver
+	// capabilities that are allowed to be requested by the container.
+	NVProxyAllowedDriverCapabilities string `flag:"nvproxy-allowed-driver-capabilities"`
+
 	// TPUProxy enables support for TPUs.
 	TPUProxy bool `flag:"tpuproxy"`
 
@@ -407,6 +411,16 @@ func (c *Config) validate() error {
 	}
 	if len(c.ProfilingMetrics) > 0 && len(c.ProfilingMetricsLog) == 0 {
 		return fmt.Errorf("profiling-metrics flag requires defining a profiling-metrics-log for output")
+	}
+	if c.NVProxyAllowedDriverCapabilities == "all" {
+		return fmt.Errorf("nvproxy-allowed-driver-capabilities cannot be set to 'all', please set it to the exact capabilities you want to allow")
+	}
+	for _, cap := range strings.Split(c.NVProxyAllowedDriverCapabilities, ",") {
+		switch cap {
+		case "compute", "compat32", "graphics", "utility", "video", "display", "ngx":
+		default:
+			return fmt.Errorf("nvproxy-allowed-driver-capabilities contains invalid capability %q", cap)
+		}
 	}
 	return nil
 }
