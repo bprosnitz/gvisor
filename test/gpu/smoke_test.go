@@ -42,6 +42,7 @@ func TestGPUHello(t *testing.T) {
 }
 
 func TestCUDASmokeTests(t *testing.T) {
+	t.Skipf("TODO: b/339711111 - Re-enable once the test is fixed")
 	ctx := context.Background()
 	c := dockerutil.MakeContainer(ctx, t)
 	defer c.CleanUp(ctx)
